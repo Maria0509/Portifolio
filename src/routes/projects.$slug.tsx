@@ -53,7 +53,7 @@ function ProjectDetail() {
 
       <section className="border-b border-border py-16 sm:py-20" aria-labelledby="overview-title">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr]">
-          <div><MediaPlaceholder label={project.media[0]} large /></div>
+          <div><MediaPlaceholder label={project.media[0] ?? "Project image"} large /></div>
           <div><p className="section-kicker">System Overview</p><h2 id="overview-title" className="section-title">Architecture</h2><div className="mt-8"><ArchitectureDiagram steps={project.architecture} /></div></div>
         </div>
       </section>

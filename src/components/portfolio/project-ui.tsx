@@ -41,7 +41,7 @@ export function ArchitectureDiagram({ steps }: { steps: string[] }) {
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <article className={cn("group grid overflow-hidden border border-border bg-card transition-transform duration-200 hover:-translate-y-1", project.featured && "lg:col-span-2 lg:grid-cols-[1.15fr_0.85fr]")}>
-      <MediaPlaceholder label={project.media[0]} large={project.featured} />
+      <MediaPlaceholder label={project.media[0] ?? "Project image"} large={project.featured} />
       <div className="flex flex-col p-6 sm:p-8">
         <p className="font-mono text-xs text-primary">PROJECT {String(index + 1).padStart(2, "0")}</p>
         <h3 className="mt-4 text-2xl font-semibold text-foreground sm:text-3xl">{project.title}</h3>
