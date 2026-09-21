@@ -8,7 +8,14 @@ type LanguageContextValue = {
   t: (key: StringKey) => string;
 };
 
-const LanguageContext = createContext<LanguageContextValue | null>(null);
+const fallbackValue: LanguageContextValue = {
+  language: "en",
+  setLanguage: () => {},
+  toggleLanguage: () => {},
+  t: (key: StringKey) => strings.en[key],
+};
+
+const LanguageContext = createContext<LanguageContextValue>(fallbackValue);
 const STORAGE_KEY = "portfolio-language";
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -43,6 +50,5 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
 export function useLanguage() {
   const context = useContext(LanguageContext);
-  if (!context) throw new Error("useLanguage must be used within LanguageProvider");
   return context;
 }
