@@ -52,7 +52,3 @@ export function useLanguage() {
   const context = useContext(LanguageContext);
   return context;
 }
-
-function unusedGuard() {
-  return context;
-}
