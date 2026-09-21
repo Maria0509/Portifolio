@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { Languages, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -18,13 +17,10 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link to="/" className="font-mono text-sm font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-          ME<span className="text-primary">/</span>ENG
-        </Link>
         <nav className="hidden items-center gap-7 md:flex" aria-label="Main navigation">
           {navItems.map((item) => <a key={item.key} href={item.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">{t(item.key)}</a>)}
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={toggleLanguage} className="font-mono text-xs" aria-label={t("lang.toggle")}>
             <Languages aria-hidden="true" />
             {language === "en" ? "PT" : "EN"}

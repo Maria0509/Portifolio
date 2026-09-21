@@ -18,7 +18,7 @@ export type Project = {
 
 // Replace null values when Maria's public links and CV are ready.
 export const profileLinks = {
-  email: null as string | null,
+  email: "<a href="mailto:madujanuario@outlook.com">Enviar e-mail</a>",
   github: "https://github.com/Maria0509",
   linkedin: "https://www.linkedin.com/in/maria-eduarda-mendes-39a153252/",
   cv:  "/cv.pdf",
