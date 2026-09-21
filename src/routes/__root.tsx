@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "../components/portfolio/site-header";
+import { LanguageProvider, useLanguage } from "../i18n/language";
 
 function NotFoundComponent() {
   return (
@@ -113,22 +114,33 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function SiteChrome() {
+  const { t } = useLanguage();
+  return (
+    <>
+      <a href="#main-content" className="sr-only z-[100] bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">{t("skip")}</a>
+      <SiteHeader />
+      <div id="main-content">
+        <Outlet />
+      </div>
+      <footer className="border-t border-border py-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <p>{t("footer.role")}</p>
+          <p className="font-mono">{t("footer.location")}</p>
+        </div>
+      </footer>
+    </>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <a href="#main-content" className="sr-only z-[100] bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
-      <SiteHeader />
-      <div id="main-content">
-      <Outlet />
-      </div>
-      <footer className="border-t border-border py-6">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p>Maria Eduarda · Electrical &amp; Computer Engineering</p>
-          <p className="font-mono">Portugal</p>
-        </div>
-      </footer>
+      <LanguageProvider>
+        <SiteChrome />
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }
