@@ -8,9 +8,44 @@ import { useLanguage } from "@/i18n/language";
 export function TagList({ items }: { items: string[] }) {
   return <div className="flex flex-wrap gap-2">{items.map((item) => <Badge key={item} variant="outline" className="border-border bg-secondary/50 font-mono text-[11px] font-medium text-muted-foreground">{item}</Badge>)}</div>;
 }
+const mediaImages: Record<string, string> = {
+  "Photo of the device": "/dispositivo.png",
+  "Arduino Nicla Voice": "/dispositivo.png",
+  "System diagram": "/diagramaerradi.png",
+  "Model / Edge Impulse screenshot": "/edge.png",
+  "Short demonstration video or GIF": "/arduino.png",
 
+  "Architecture diagram": "/Iot_arquitetura.png",
+  "Node-RED flow": "/node_flow.png",
+  "Dashboard screenshot": "/node_red_dashboard.png",
+  "Docker infrastructure screenshot": "/docker.png",
+
+  "Robot photo": "/robo.png",
+  "Electronics assembly": "topo.png",
+  "Wiring": "/base.png",
+  "Short demonstration video": "/robome.gif",
+
+  "CoppeliaSim UR5 screenshot": "/ur5.png",
+  "Dashboard": "/dashboard.png",
+  "Graph visualization": "/graph.png",
+};
 export function MediaPlaceholder({ label, large = false }: { label: string; large?: boolean }) {
   const { t } = useLanguage();
+  const imageSrc = mediaImages[label];
+
+  if (imageSrc) {
+    return (
+      <img
+        src={imageSrc}
+        alt={label}
+        className={cn(
+          "h-48 w-full border border-border bg-secondary/40 object-contain p-4",
+          large && "h-72",
+        )}
+        loading="lazy"
+      />
+    );
+  }
   const lower = label.toLowerCase();
   const isVideo = lower.includes("video") || lower.includes("gif") || lower.includes("vídeo");
   const Icon = isVideo ? Video : Image;
