@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, Image, Video } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +11,7 @@ export function TagList({ items }: { items: string[] }) {
 }
 const mediaImages: Record<string, string> = {
   "Photo of the device": "/dispositivo.png",
-  "Arduino Nicla Voice": "/dispositivo.png",
+  "Arduino Nicla Voice": "/arduino.png",
   "System diagram": "/diagramaerradi.png",
   "Model / Edge Impulse screenshot": "/edge.png",
   "Short demonstration video or GIF": "/arduino.png",
@@ -20,37 +21,47 @@ const mediaImages: Record<string, string> = {
   "Dashboard screenshot": "/node_red_dashboard.png",
   "Docker infrastructure screenshot": "/docker.png",
 
-  "Robot photo": "/robo.png",
-  "Electronics assembly": "topo.png",
-  "Wiring": "/base.png",
+  "Robot photo": "/robo.jpg",
+  "Electronics assembly": "/topo.jpg",
+  "Wiring": "/base.jpg",
   "Short demonstration video": "/robome.gif",
 
   "CoppeliaSim UR5 screenshot": "/ur5.png",
   "Dashboard": "/dashboard.png",
   "Graph visualization": "/graph.png",
 };
-export function MediaPlaceholder({ label, large = false }: { label: string; large?: boolean }) {
+export function MediaPlaceholder({ label, large = false, card = false }: { label: string; large?: boolean; card?: boolean }) {
   const { t } = useLanguage();
   const imageSrc = mediaImages[label];
+  const [failedSrc, setFailedSrc] = useState<string | undefined>();
+  const isPhoto = ["Photo of the device", "Robot photo"].includes(label);
+  const frameClass = cn(
+    "relative w-full overflow-hidden bg-secondary/40",
+    card ? "aspect-[16/10]" : "aspect-[4/3] border border-border",
+    card && large && "lg:aspect-auto lg:min-h-80",
+  );
 
-  if (imageSrc) {
+  if (imageSrc && failedSrc !== imageSrc) {
     return (
-      <img
-        src={imageSrc}
-        alt={label}
-        className={cn(
-          "h-48 w-full border border-border bg-secondary/40 object-contain p-4",
-          large && "h-72",
-        )}
-        loading="lazy"
-      />
+      <div className={frameClass}>
+        <img
+          src={imageSrc}
+          alt={label}
+          className={cn(
+            "absolute inset-0 h-full w-full",
+            card && isPhoto ? "object-cover" : "object-contain p-2 sm:p-3",
+          )}
+          loading="lazy"
+          onError={() => setFailedSrc(imageSrc)}
+        />
+      </div>
     );
   }
   const lower = label.toLowerCase();
   const isVideo = lower.includes("video") || lower.includes("gif") || lower.includes("vídeo");
   const Icon = isVideo ? Video : Image;
   return (
-    <div className={cn("media-grid flex min-h-44 items-center justify-center border border-border bg-secondary/40 p-6 text-center", large && "min-h-72")} role="img" aria-label={`${label} — ${t("media.placeholder")}`}>
+    <div className={cn(frameClass, "media-grid flex items-center justify-center p-6 text-center")} role="img" aria-label={`${label} — ${t("media.placeholder")}`}>
       <div>
         <Icon className="mx-auto mb-3 size-5 text-primary" aria-hidden="true" />
         <p className="text-sm font-medium text-foreground">{label}</p>
@@ -80,7 +91,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   const { t } = useLanguage();
   return (
     <article className={cn("group grid overflow-hidden border border-border bg-card transition-transform duration-200 hover:-translate-y-1", project.featured && "lg:col-span-2 lg:grid-cols-[1.15fr_0.85fr]")}>
-      <MediaPlaceholder label={project.media[0] ?? t("media.default")} large={project.featured === true} />
+      <MediaPlaceholder label={project.media[0] ?? t("media.default")} large={project.featured === true} card />
       <div className="flex flex-col p-6 sm:p-8">
         <p className="font-mono text-xs text-primary">{t("projects.card")} {String(index + 1).padStart(2, "0")}</p>
         <h3 className="mt-4 text-2xl font-semibold text-foreground sm:text-3xl">{project.title}</h3>
