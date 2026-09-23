@@ -93,7 +93,7 @@ function Index() {
           <p className="section-kicker">{t("education.kicker")}</p><h2 id="education-title" className="section-title">{t("education.title")}</h2>
           <div className="mt-10 border-t border-border">
             <article className="grid gap-4 border-b border-border py-8 md:grid-cols-[180px_1fr]"><p className="font-mono text-xs text-primary">{t("education.present")}</p><div><h3 className="text-xl font-semibold text-foreground">{t("education.msc")}</h3><p className="mt-2 text-sm text-muted-foreground">{t("education.mscSchool")}</p><div className="mt-5"><TagList items={skillGroups[1]?.skills.slice(0, 5) ?? []} /></div></div></article>
-            <article className="grid gap-4 border-b border-border py-8 md:grid-cols-[180px_1fr]"><p className="font-mono text-xs text-muted-foreground">{t("education.datesToAdd")}</p><div><h3 className="text-xl font-semibold text-foreground">{t("education.bsc")}</h3><p className="mt-2 text-sm text-muted-foreground">{t("education.bscSchool")}</p><p className="mt-5 max-w-2xl text-sm leading-6 text-muted-foreground">{t("education.note")}</p></div></article>
+            <article className="grid gap-4 border-b border-border py-8 md:grid-cols-[180px_1fr]"><p className="font-mono text-xs text-primary">{t("education.datesToAdd")}</p><div><h3 className="text-xl font-semibold text-foreground">{t("education.bsc")}</h3><p className="mt-2 text-sm text-muted-foreground">{t("education.bscSchool")}</p><p className="mt-5 max-w-2xl text-sm leading-6 text-muted-foreground">{t("education.note")}</p></div></article>
           </div>
         </div>
       </section>
