@@ -57,7 +57,7 @@ function ProjectDetail() {
 
       <section className="border-b border-border py-16 sm:py-20" aria-labelledby="overview-title">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr]">
-          <div><MediaPlaceholder label={project.media[0] ?? t("media.default")} large /></div>
+          <div><MediaPlaceholder label={project.media[0] ?? t("media.default")} sourceLabel={base.media[0] ?? t("media.default")} large /></div>
           <div><p className="section-kicker">{t("detail.overviewKicker")}</p><h2 id="overview-title" className="section-title">{t("detail.overviewTitle")}</h2><div className="mt-8"><ArchitectureDiagram steps={project.architecture} /></div></div>
         </div>
       </section>
@@ -83,7 +83,7 @@ function ProjectDetail() {
 
       <section className="border-b border-border py-16" aria-labelledby="tech-title"><div className="mx-auto max-w-6xl px-5 sm:px-8"><p className="section-kicker">{t("detail.toolkit")}</p><h2 id="tech-title" className="section-title">{t("detail.technologies")}</h2><div className="mt-8"><TagList items={project.technologies} /></div></div></section>
 
-      <section className="py-16" aria-labelledby="media-title"><div className="mx-auto max-w-6xl px-5 sm:px-8"><p className="section-kicker">{t("detail.mediaKicker")}</p><h2 id="media-title" className="section-title">{t("detail.mediaTitle")}</h2><div className="mt-8 grid gap-4 sm:grid-cols-2">{project.media.slice(1).map((item) => <MediaPlaceholder key={item} label={item} />)}</div><div className="mt-10"><Button asChild variant="outline"><Link to="/" hash="projects"><ArrowLeft />{t("detail.back")}</Link></Button></div></div></section>
+      <section className="py-16" aria-labelledby="media-title"><div className="mx-auto max-w-6xl px-5 sm:px-8"><p className="section-kicker">{t("detail.mediaKicker")}</p><h2 id="media-title" className="section-title">{t("detail.mediaTitle")}</h2><div className="mt-8 grid gap-4 sm:grid-cols-2">{project.media.slice(1).map((item, index) => <MediaPlaceholder key={`${base.slug}-${index}`} label={item} sourceLabel={base.media[index + 1] ?? item} />)}</div><div className="mt-10"><Button asChild variant="outline"><Link to="/" hash="projects"><ArrowLeft />{t("detail.back")}</Link></Button></div></div></section>
     </main>
   );
 }

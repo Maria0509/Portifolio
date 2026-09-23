@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, Image, Video } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import type { Project } from "@/data/portfolio";
+import { projects, type Project } from "@/data/portfolio";
 import { useLanguage } from "@/i18n/language";
 
 export function TagList({ items }: { items: string[] }) {
@@ -11,30 +11,51 @@ export function TagList({ items }: { items: string[] }) {
 }
 const mediaImages: Record<string, string> = {
   "Photo of the device": "/dispositivo.png",
-  "Arduino Nicla Voice": "/arduino.png",
+  "Arduino Nicla Voice": "/dispositivo.png",
   "System diagram": "/diagramaerradi.png",
-  "Model / Edge Impulse screenshot": "/edge.png",
-  "Short demonstration video or GIF": "/arduino.png",
+  "Model / Edge Impulse screenshot": "/diagramaEdge.png",
+  "Short demonstration video or GIF": "/arduinoconnections.png",
+
+  "Fotografia do dispositivo": "/dispositivo.png",
+  "Diagrama do sistema": "/diagramaerradi.png",
+  "Captura do modelo / Edge Impulse": "/diagramaEdge.png",
+  "Demonstração em vídeo ou GIF": "/arduinoconnections.png",
 
   "Architecture diagram": "/Iot_arquitetura.png",
   "Node-RED flow": "/node_flow.png",
   "Dashboard screenshot": "/node_red_dashboard.png",
   "Docker infrastructure screenshot": "/docker.png",
 
+  "Diagrama de arquitetura": "/Iot_arquitetura.png",
+  "Fluxo Node-RED": "/node_flow.png",
+  "Captura do dashboard": "/node_red_dashboard.png",
+  "Captura da infraestrutura Docker":"/docker.png",
+
   "Robot photo": "/robo.jpg",
   "Electronics assembly": "/topo.jpg",
   "Wiring": "/base.jpg",
   "Short demonstration video": "/robome.gif",
 
+  "Fotografia do robô": "/robo.jpg",
+  "Montagem eletrónica": "/topo.jpg",
+  "Cablagem": "/base.jpg",
+  "Vídeo curto de demonstração": "/robome.gif",
+
   "CoppeliaSim UR5 screenshot": "/ur5.png",
   "Dashboard": "/dashboard.png",
   "Graph visualization": "/graph.png",
+
+  "Captura do UR5 no CoppeliaSim": "/ur5.png",
+  "Visualização gráfica": "/graph.png",
+
+
 };
-export function MediaPlaceholder({ label, large = false, card = false }: { label: string; large?: boolean; card?: boolean }) {
+export function MediaPlaceholder({ label, sourceLabel = label, large = false, card = false }: { label: string; sourceLabel?: string; large?: boolean; card?: boolean }) {
   const { t } = useLanguage();
-  const imageSrc = mediaImages[label];
+  // The media reference stays the same when the visible label is translated.
+  const imageSrc = mediaImages[sourceLabel];
   const [failedSrc, setFailedSrc] = useState<string | undefined>();
-  const isPhoto = ["Photo of the device", "Robot photo"].includes(label);
+  const isPhoto = ["Photo of the device", "Robot photo"].includes(sourceLabel);
   const frameClass = cn(
     "relative w-full overflow-hidden bg-secondary/40",
     card ? "aspect-[16/10]" : "aspect-[4/3] border border-border",
@@ -89,9 +110,10 @@ export function ArchitectureDiagram({ steps }: { steps: string[] }) {
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { t } = useLanguage();
+  const baseProject = projects.find((item) => item.slug === project.slug) ?? project;
   return (
     <article className={cn("group grid overflow-hidden border border-border bg-card transition-transform duration-200 hover:-translate-y-1", project.featured && "lg:col-span-2 lg:grid-cols-[1.15fr_0.85fr]")}>
-      <MediaPlaceholder label={project.media[0] ?? t("media.default")} large={project.featured === true} card />
+      <MediaPlaceholder label={project.media[0] ?? t("media.default")} sourceLabel={baseProject.media[0] ?? t("media.default")} large={project.featured === true} card />
       <div className="flex flex-col p-6 sm:p-8">
         <p className="font-mono text-xs text-primary">{t("projects.card")} {String(index + 1).padStart(2, "0")}</p>
         <h3 className="mt-4 text-2xl font-semibold text-foreground sm:text-3xl">{project.title}</h3>
