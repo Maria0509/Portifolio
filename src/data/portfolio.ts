@@ -1,5 +1,6 @@
 export type Project = {
   slug: string;
+  github?: string;
   title: string;
   subtitle: string;
   summary: string;
@@ -27,6 +28,7 @@ export const profileLinks = {
 export const projects: Project[] = [
   {
     slug: "erradisnore",
+    github: "https://github.com/Maria0509/erradisnore-device",
     title: "Erradisnore",
     subtitle: "Embedded Snoring Detection and Positional Therapy Device",
     summary: "On-device snoring detection and positional therapy using embedded machine learning and IMU sensing.",
@@ -43,6 +45,7 @@ export const projects: Project[] = [
   },
   {
     slug: "iot-monitoring-system",
+    github: "https://github.com/Maria0509/iot_monitoring",
     title: "IoT Monitoring System",
     subtitle: "Containerized IoT Data Acquisition and Monitoring Architecture",
     summary: "Containerized services for acquiring, processing, storing and visualizing IoT sensor data.",
@@ -56,6 +59,7 @@ export const projects: Project[] = [
   },
   {
     slug: "line-following-robot",
+    github: "https://github.com/Maria0509/line_following_robot",
     title: "Autonomous Line-Following Robot",
     subtitle: "Sensor-Based Mobile Robot",
     summary: "A hands-on mobile robot integrating line sensors, obstacle detection, motor control and adaptive lighting.",
@@ -69,6 +73,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ur5-monitoring-platform",
+    github: "https://github.com/Maria0509/ur5-monitoring",
     title: "UR5 Robot Monitoring Platform",
     subtitle: "REST APIs, Cloud Database and Web Monitoring",
     summary: "A cyber-physical monitoring pipeline connecting a simulated UR5 robot to a cloud-backed web dashboard.",

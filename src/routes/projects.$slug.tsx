@@ -49,7 +49,7 @@ function ProjectDetail() {
           <p className="mt-8 max-w-3xl text-base leading-7 text-muted-foreground">{project.description}</p>
           {project.context && <p className="mt-5 max-w-3xl border-l-2 border-primary pl-4 text-sm text-foreground">{project.context}</p>}
           <div className="mt-8 flex flex-wrap gap-3">
-            {profileLinks.github ? <Button asChild><a href={profileLinks.github}><Github />{t("detail.github")}</a></Button> : <Button disabled title={t("detail.repoPending")}><Github />{t("detail.github")}</Button>}
+            {(project.github ?? profileLinks.github) ? <Button asChild><a href={project.github ?? profileLinks.github}><Github />{t("detail.github")}</a></Button> : <Button disabled title={t("detail.repoPending")}><Github />{t("detail.github")}</Button>}
             <Button asChild variant="outline"><a href="#technical-details">{t("detail.technical")}</a></Button>
           </div>
         </div>
